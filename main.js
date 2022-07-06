@@ -1,12 +1,6 @@
 // Modules
 const {app, BrowserWindow} = require('electron')
 
-const bcrypt = require('bcrypt')
-
-bcrypt.hash('myPlainTextPassword', 10, function(err, hashedPass) {
-  console.log(hashedPass)
-})
-
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
