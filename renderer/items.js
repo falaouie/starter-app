@@ -20,6 +20,37 @@ exports.select = e => {
     e.currentTarget.classList.add('selected')
 }
 
+// Move to newly selected item
+exports.changeSelection = direction => {
+   
+   // Get selected item
+   let currentItem = document.getElementsByClassName('read-item selected')[0]
+
+   // Handle up/down
+   if (direction === 'ArrowUp' && currentItem.previousElementSibling ) {
+    currentItem.classList.remove('selected')
+    currentItem.previousElementSibling.classList.add('selected')
+   } else if (direction === 'ArrowDown' && currentItem.nextElementSibling) {
+    currentItem.classList.remove('selected')
+    currentItem.nextElementSibling.classList.add('selected')
+   }
+}
+
+// Open selected item
+exports.open = () => {
+
+    // Only if we have items
+    if( !this.storage.length ) return
+
+    // Get selected items
+    let selectedItem = document.getElementsByClassName('read-item selected')[0]
+
+    // Get selected item's url
+    let contentURL = selectedItem.dataset.url
+
+    console.log('Opening item:', contentURL);
+}
+
 // Add new item
 exports.addItem = (item, isNew = false) => {
   
@@ -28,6 +59,9 @@ exports.addItem = (item, isNew = false) => {
 
     // Assign "read-item" class
     itemNode.setAttribute('class', 'read-item')
+
+    // Set item url as data attribute
+    itemNode.setAttribute('data-url', item.url)
 
     // Add innerHTML
     itemNode.innerHTML = `<img src="${item.screenshot}"><h2>${item.title}</h2>`
@@ -38,6 +72,9 @@ exports.addItem = (item, isNew = false) => {
 
     // Attach click handler to select
     itemNode.addEventListener('click', this.select)
+
+    // Attach a doubleclick handler to open url
+    itemNode.addEventListener('dblclick', this.open)
 
     // if this is the first item select it
     if (document.getElementsByClassName('read-item').length === 1) {

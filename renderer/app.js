@@ -23,7 +23,11 @@ let showModal = document.getElementById('show-modal'),
     })
 
     // Navigate item selection with up/down arrows
-    
+    document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
+           items.changeSelection(e.key) 
+        }
+    })
 
     // Disable & enable modal button
     const toggleModalButtons = () => {
