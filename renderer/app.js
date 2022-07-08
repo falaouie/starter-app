@@ -1,5 +1,5 @@
 const { ipcRenderer } = require("electron")
-
+const items = require('./items')
 
 
 // Dom nodes
@@ -53,7 +53,9 @@ let showModal = document.getElementById('show-modal'),
 
     // Listen for new item from main process
     ipcRenderer.on('new-item-success', (e, newItem) => {
-        console.log(newItem);
+        
+        // Add new item to "items" node
+        items.addItem(newItem, true)
 
         // Enable buttons
         toggleModalButtons()
