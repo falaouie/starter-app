@@ -7,7 +7,23 @@ let showModal = document.getElementById('show-modal'),
     closeModal = document.getElementById('close-modal'),
     modal = document.getElementById('modal'),
     addItem = document.getElementById('add-item'),
-    itemUrl = document.getElementById('url')
+    itemUrl = document.getElementById('url'),
+    search = document.getElementById('search')
+
+    // Filter items with search
+    search.addEventListener('keyup', e => {
+
+        // Loop thru items
+        Array.from( document.getElementsByClassName('read-item') ).forEach( item => {
+          
+            // hide items that don't match
+            let hasMatch = item.innerText.toLowerCase().includes(search.value)
+            item.style.display = hasMatch ? 'flex' : 'none'
+        })
+    })
+
+    // Navigate item selection with up/down arrows
+    
 
     // Disable & enable modal button
     const toggleModalButtons = () => {
