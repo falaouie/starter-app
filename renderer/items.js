@@ -1,6 +1,15 @@
 
+// Modules
+const fs = require('fs')
+
 // DOM nodes
 let items = document.getElementById('items')
+
+// Get reader.js content
+let readerJS
+fs.readFile(`${__dirname}/reader.js`, (err, data) => {
+    readerJS = data.toString()
+})
 
 // Track items in storage
 exports.storage = JSON.parse(localStorage.getItem('readit-items')) || []
@@ -60,7 +69,10 @@ exports.open = () => {
     `)
 
     // Inject JavaScript
+    /*
     readerWin.eval(`alert('Hello from items.js)`)
+    */
+   readerWin.eval(readerJS)
 }
 
 // Add new item
