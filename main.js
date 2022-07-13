@@ -7,6 +7,20 @@ const readItem = require('./readItem')
 // be closed automatically when the JavaScript object is garbage collected.
 let mainWindow
 
+const gotTheLock = app.requestSingleInstanceLock()
+
+if (!gotTheLock) {
+  app.quit()
+} else {
+  app.on('second-instance', (event, commandLine, workingdirectory) => {
+    // someone tried to run a second instance, we should focus our window
+    if (mainWindow) {
+      if (mainWindow.isMinimized()) mainWindow.restore() 
+      mainWindow.focus()
+    }
+  })
+}
+
 // Listen for item request
 ipcMain.on('new-item', (e, itemUrl) => {
   
